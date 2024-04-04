@@ -15,7 +15,7 @@ public class App implements Callable<Integer> {
     @CommandLine.Parameters(index = "0", paramLabel = "filepath2", description = "path to first file")
     private String filepath2;
     public static void main (String[] args) {
-        int exitCode = new picocli.CommandLine(new App()).execute(args);
+        int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 
