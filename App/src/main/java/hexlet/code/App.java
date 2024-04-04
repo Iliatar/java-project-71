@@ -8,6 +8,12 @@ import java.util.concurrent.Callable;
 public class App implements Callable<Integer> {
     @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish", paramLabel = "format", description = "output format [default: ${DEFAULT-VALUE}]")
     private String format;
+
+    @CommandLine.Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
+    private String filepath1;
+
+    @CommandLine.Parameters(index = "0", paramLabel = "filepath2", description = "path to first file")
+    private String filepath2;
     public static void main (String[] args) {
         int exitCode = new picocli.CommandLine(new App()).execute(args);
         System.exit(exitCode);
