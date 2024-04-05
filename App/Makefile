@@ -1,5 +1,7 @@
 run-dist:
 	./build/install/App/bin/App
+run-json:
+	./build/install/App/bin/App json1.json json2.json
 
 build-dist:
 	./gradlew clean
