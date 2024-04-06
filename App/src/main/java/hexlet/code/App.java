@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
@@ -28,44 +29,50 @@ public class App implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public Integer call() throws Exception{
+        try {
+            Map<String, String> map1 = getJsonMap(filepath1);
 
-        Path path1 = Paths.get(filepath1);
-        String json1 = Files.readString(path1);
-        Map<String, String> map1 = objectMapper.readValue(json1, new TypeReference<Map<String, String>>(){});
-        Set<String> keyset1 = map1.keySet();
+            Map<String, String> map2 = getJsonMap(filepath2);
 
-        Path path2 = Paths.get(filepath2);
-        String json2 = Files.readString(path2);
-        Map<String, String> map2 = objectMapper.readValue(json2, new TypeReference<Map<String, String>>(){});
-        Set<String> keyset2 = map2.keySet();
 
-        String[] keys = Stream.concat(keyset1.stream(), keyset2.stream())
+            String[] keys = Stream.concat(map1.keySet().stream(), map2.keySet().stream())
                                 .distinct()
                                 .sorted().toArray(String[]::new);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("{\n");
-        for (String key : keys) {
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-                if (map1.get(key).equals(map2.get(key))){
-                    builder.append("    " + key + ": " + map1.get(key));
+            StringBuilder builder = new StringBuilder();
+            builder.append("{\n");
+            for (String key : keys) {
+                if (map1.containsKey(key) && map2.containsKey(key)) {
+                    if (map1.get(key).equals(map2.get(key))){
+                        builder.append("    " + key + ": " + map1.get(key));
+                    } else {
+                        builder.append("  - " + key + ": " + map1.get(key) + "\n");
+                        builder.append("  + " + key + ": " + map2.get(key));
+                    }
+                } else if (map1.containsKey(key)) {
+                    builder.append("  - " + key + ": " + map1.get(key));
                 } else {
-                    builder.append("  - " + key + ": " + map1.get(key) + "\n");
                     builder.append("  + " + key + ": " + map2.get(key));
                 }
-            } else if (map1.containsKey(key)) {
-                builder.append("  - " + key + ": " + map1.get(key));
-            } else {
-                builder.append("  + " + key + ": " + map2.get(key));
+                builder.append("\n");
             }
-            builder.append("\n");
+            builder.append("}");
+
+            System.out.println(builder);
+        } catch (java.nio.file.NoSuchFileException e) {
+            System.out.println("No such file: " + e.getMessage());
         }
-        builder.append("}");
-
-        System.out.println(builder);
-
+        catch (JsonParseException e) {
+            System.out.println("Error parsing json: " + e.getMessage());
+        }
         return 0;
+    }
+
+    private Map<String, String> getJsonMap (String filePath) throws Exception{
+        ObjectMapper objectMapper = new ObjectMapper();
+        Path path = Paths.get(filePath);
+        String json = Files.readString(path);
+        return objectMapper.readValue(json, new TypeReference<Map<String, String>>(){});
     }
 }
