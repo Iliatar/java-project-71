@@ -43,19 +43,17 @@ public class App implements Callable<Integer> {
             StringBuilder builder = new StringBuilder();
             builder.append("{\n");
             for (String key : keys) {
-                if (map1.containsKey(key) && map2.containsKey(key)) {
-                    if (map1.get(key).equals(map2.get(key))){
-                        builder.append("    " + key + ": " + map1.get(key));
-                    } else {
-                        builder.append("  - " + key + ": " + map1.get(key) + "\n");
-                        builder.append("  + " + key + ": " + map2.get(key));
-                    }
-                } else if (map1.containsKey(key)) {
-                    builder.append("  - " + key + ": " + map1.get(key));
+                if (map1.containsKey(key) && map2.containsKey(key)
+                    && map1.get(key).equals(map2.get(key))) {
+                    builder.append("    " + key + ": " + map1.get(key) + "\n");
                 } else {
-                    builder.append("  + " + key + ": " + map2.get(key));
+                    if (map1.containsKey(key)) {
+                        builder.append("  - " + key + ": " + map1.get(key) + "\n");
+                    }
+                    if (map2.containsKey(key)) {
+                        builder.append("  + " + key + ": " + map2.get(key) + "\n");
+                    }
                 }
-                builder.append("\n");
             }
             builder.append("}");
 
