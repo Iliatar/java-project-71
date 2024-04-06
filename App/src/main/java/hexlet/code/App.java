@@ -1,8 +1,10 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import picocli.CommandLine;
 
+import java.nio.file.NoSuchFileException;
 import java.util.concurrent.Callable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -58,8 +60,11 @@ public class App implements Callable<Integer> {
             builder.append("}");
 
             System.out.println(builder);
-        } catch (java.nio.file.NoSuchFileException e) {
+        } catch (NoSuchFileException e) {
             System.out.println("No such file: " + e.getMessage());
+        }
+        catch (MismatchedInputException e) {
+            System.out.println("Error parsing json: " + e.getMessage());
         }
         catch (JsonParseException e) {
             System.out.println("Error parsing json: " + e.getMessage());
