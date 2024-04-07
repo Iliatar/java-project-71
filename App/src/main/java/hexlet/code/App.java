@@ -14,9 +14,11 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@CommandLine.Command(name = "App", mixinStandardHelpOptions = true, version = "App 0.1", description = "Unknown Application")
+@CommandLine.Command(name = "", mixinStandardHelpOptions = true,
+        version = "App 0.1", description = "Unknown Application")
 public class App implements Callable<Integer> {
-    @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish", paramLabel = "format", description = "output format [default: ${DEFAULT-VALUE}]")
+    @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish",
+            paramLabel = "format", description = "output format [default: ${DEFAULT-VALUE}]")
     private String format;
 
     @CommandLine.Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
@@ -24,13 +26,13 @@ public class App implements Callable<Integer> {
 
     @CommandLine.Parameters(index = "1", paramLabel = "filepath2", description = "path to first file")
     private String filepath2;
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 
     @Override
-    public Integer call() throws Exception{
+    public Integer call() throws Exception {
         try {
             Map<String, String> map1 = getJsonMap(filepath1);
 
@@ -61,20 +63,18 @@ public class App implements Callable<Integer> {
             System.out.println(builder);
         } catch (NoSuchFileException e) {
             System.out.println("No such file: " + e.getMessage());
-        }
-        catch (MismatchedInputException e) {
+        } catch (MismatchedInputException e) {
             System.out.println("Error parsing json: " + e.getMessage());
-        }
-        catch (JsonParseException e) {
+        } catch (JsonParseException e) {
             System.out.println("Error parsing json: " + e.getMessage());
         }
         return 0;
     }
 
-    private Map<String, String> getJsonMap (String filePath) throws Exception{
+    private Map<String, String> getJsonMap(String filePath) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Path path = Paths.get(filePath);
         String json = Files.readString(path);
-        return objectMapper.readValue(json, new TypeReference<Map<String, String>>(){});
+        return objectMapper.readValue(json, new TypeReference<Map<String, String>>() { });
     }
 }
