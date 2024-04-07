@@ -1,5 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Iliatar/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Iliatar/java-project-71/actions)
+[![Action Status](https://github.com/Iliatar/java-project-71/actions/workflows/main.yml/badge.svg)](https://github.com/Iliatar/java-project-71/actions)
 ###Description
 Application compare two plain json files and shows differences between them
 ###Aciinema
