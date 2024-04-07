@@ -1,0 +1,8 @@
+name: buildAndRun
+run-name: ${{ github.actor }} building and test project
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
