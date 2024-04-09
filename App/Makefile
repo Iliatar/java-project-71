@@ -9,3 +9,8 @@ build-dist:
 	./gradlew installDist
 
 build-run: build-dist run-dist
+
+build:
+	./gradlew clean build
+
+.PHONY: build
