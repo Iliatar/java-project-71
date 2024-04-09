@@ -1,9 +1,21 @@
 package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class DifferTest {
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(output));
+    }
     @Test
     public void test() throws Exception {
         String expected1 = "{\n"
@@ -35,5 +47,10 @@ public class DifferTest {
                 +  "}";
         String actual3 = Differ.generate("src/test/resources/json3", "src/test/resources/json1.json");
         assertEquals(expected3, actual3);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
     }
 }
