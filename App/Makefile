@@ -13,4 +13,7 @@ build-run: build-dist run-dist
 build:
 	./gradlew clean build
 
+report:
+	./gradlew jacocoTestReport
+
 .PHONY: build
