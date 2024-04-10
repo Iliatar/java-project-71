@@ -16,7 +16,5 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Show tree
         run: tree
-      - name: CD App
-        run: cd App
       - name: Build with Gradle
-        run: ./gradlew build
+        run: /home/runner/work/java-project-71/java-project-71/App/gradlew build
