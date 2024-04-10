@@ -12,11 +12,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Show tree
-        run: tree
-      - name: Show pwd
-        run: pwd
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+      - name: Show tree
+        run: tree
+      - name: CD App
+        run: cd App
       - name: Build with Gradle
-        run: App/gradlew build
+        run: gradlew build
