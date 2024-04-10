@@ -6,6 +6,7 @@ plugins {
     application
     distribution
     checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
@@ -38,3 +39,5 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+tasks.jacocoTestReport { reports { xml.required.set(true) } }
