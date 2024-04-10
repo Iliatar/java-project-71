@@ -19,4 +19,4 @@ jobs:
       - name: CD App
         run: cd App
       - name: Build with Gradle
-        run: gradlew build
+        run: ./gradlew build
