@@ -17,7 +17,7 @@ public class DifferTest {
         System.setOut(new PrintStream(output));
     }
     @Test
-    public void test() throws Exception {
+    public void testJson() throws Exception {
         String expected1 = "{\n"
                 + "  - follow: false\n"
                 + "  + followed: true\n"
@@ -36,7 +36,7 @@ public class DifferTest {
                 + "  - proxy: 123.234.53.22\n"
                 + "  - timeout: 55\n"
                 + "}";
-        String actual2 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json3");
+        String actual2 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json3.json");
         assertEquals(expected2, actual2);
 
         String expected3 = "{\n"
@@ -45,7 +45,42 @@ public class DifferTest {
                 +  "  + proxy: 123.234.53.22\n"
                 +  "  + timeout: 55\n"
                 +  "}";
-        String actual3 = Differ.generate("src/test/resources/json3", "src/test/resources/json1.json");
+        String actual3 = Differ.generate("src/test/resources/json3.json", "src/test/resources/json1.json");
+        assertEquals(expected3, actual3);
+    }
+
+    @Test
+    public void testYaml() throws Exception {
+        String expected1 = "{\n"
+                + "  - follow: false\n"
+                + "    format: yaml\n"
+                + "    host: hexlet.io\n"
+                + "    proxy: 123.234.53.22\n"
+                + "  + repeating: no\n"
+                + "  - timeout: 55\n"
+                + "  + timeout: 70\n"
+                + "}";
+        String actual1 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml2.yml");
+        assertEquals(expected1, actual1);
+
+        String expected2 = "{\n"
+                + "  - follow: false\n"
+                + "  - format: yaml\n"
+                + "  - host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 55\n"
+                + "}";
+        String actual2 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml3.yml");
+        assertEquals(expected2, actual2);
+
+        String expected3 = "{\n"
+                + "  + follow: false\n"
+                + "  + format: yaml\n"
+                + "  + host: hexlet.io\n"
+                + "  + proxy: 123.234.53.22\n"
+                + "  + timeout: 55\n"
+                + "}";
+        String actual3 = Differ.generate("src/test/resources/yaml3.yml", "src/test/resources/yaml1.yml");
         assertEquals(expected3, actual3);
     }
 

@@ -1,25 +1,17 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
-import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
         try {
-            Map<String, String> map1 = getJsonMap(filepath1);
-
-            Map<String, String> map2 = getJsonMap(filepath2);
-
-
+            Map<String, String> map1 = Parser.getMap(filepath1);
+            Map<String, String> map2 = Parser.getMap(filepath2);
             String[] keys = Stream.concat(map1.keySet().stream(), map2.keySet().stream())
                     .distinct()
                     .sorted().toArray(String[]::new);
@@ -41,22 +33,13 @@ public class Differ {
             }
             builder.append("}");
 
-            String result = builder.toString();
-            System.out.println(result);
-            return result;
+            return builder.toString();
         } catch (NoSuchFileException e) {
-            throw new Exception("No such file: " + e.getMessage());
+            return "No such file: " + e.getMessage();
         } catch (MismatchedInputException e) {
-            throw new Exception("Error parsing json: " + e.getMessage());
+            return "Error parsing file: " + e.getMessage();
         } catch (JsonParseException e) {
-            throw new Exception("Error parsing json: " + e.getMessage());
+            return "Error parsing file: " + e.getMessage();
         }
-    }
-
-    private static Map<String, String> getJsonMap(String filePath) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Path path = Paths.get(filePath);
-        String json = Files.readString(path);
-        return objectMapper.readValue(json, new TypeReference<Map<String, String>>() { });
     }
 }

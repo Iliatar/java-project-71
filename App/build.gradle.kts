@@ -26,6 +26,8 @@ dependencies {
     implementation(files("src/main/java/lib/jackson-core-2.17.0.jar"))
     implementation(files("src/main/java/lib/jackson-databind-2.17.0.jar"))
     implementation(files("src/main/java/lib/jackson-annotations-2.15.4.jar"))
+    implementation(files("src/main/java/lib/jackson-dataformat-yaml-2.16.2.jar"))
+    implementation(files("src/main/java/lib/snakeyaml-2.2.jar"))
 }
 
 tasks.test {
