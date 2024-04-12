@@ -28,6 +28,7 @@ dependencies {
     implementation(files("src/main/java/lib/jackson-annotations-2.15.4.jar"))
     implementation(files("src/main/java/lib/jackson-dataformat-yaml-2.16.2.jar"))
     implementation(files("src/main/java/lib/snakeyaml-2.2.jar"))
+    implementation("info.picocli:picocli:4.7.5");
 }
 
 tasks.test {
