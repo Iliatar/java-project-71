@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
         try {
-            Map<String, String> map1 = Parser.getMap(filepath1);
-            Map<String, String> map2 = Parser.getMap(filepath2);
+            Map<String, Object> map1 = Parser.getMap(filepath1);
+            Map<String, Object> map2 = Parser.getMap(filepath2);
             String[] keys = Stream.concat(map1.keySet().stream(), map2.keySet().stream())
                     .distinct()
                     .sorted().toArray(String[]::new);
@@ -20,14 +20,14 @@ public class Differ {
             builder.append("{\n");
             for (String key : keys) {
                 if (map1.containsKey(key) && map2.containsKey(key)
-                        && map1.get(key).equals(map2.get(key))) {
-                    builder.append("    " + key + ": " + map1.get(key) + "\n");
+                        && String.valueOf(map1.get(key)).equals(String.valueOf(map2.get(key)))) {
+                    builder.append("    " + key + ": " + String.valueOf(map1.get(key)) + "\n");
                 } else {
                     if (map1.containsKey(key)) {
-                        builder.append("  - " + key + ": " + map1.get(key) + "\n");
+                        builder.append("  - " + key + ": " + String.valueOf(map1.get(key)) + "\n");
                     }
                     if (map2.containsKey(key)) {
-                        builder.append("  + " + key + ": " + map2.get(key) + "\n");
+                        builder.append("  + " + key + ": " + String.valueOf(map2.get(key)) + "\n");
                     }
                 }
             }

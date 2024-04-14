@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, String> getMap(String filePath) throws Exception {
+    public static Map<String, Object> getMap(String filePath) throws Exception {
         Path path = Paths.get(filePath);
         String fileData = Files.readString(path);
 
