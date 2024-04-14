@@ -27,7 +27,7 @@ public class DifferTest {
                 + "  - timeout: 55\n"
                 + "  + timeout: 200\n"
                 + "}";
-        String actual1 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json2.json");
+        String actual1 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json2.json", "stylish");
         assertEquals(expected1, actual1);
 
         String expected2 = "{\n"
@@ -36,7 +36,7 @@ public class DifferTest {
                 + "  - proxy: 123.234.53.22\n"
                 + "  - timeout: 55\n"
                 + "}";
-        String actual2 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json3.json");
+        String actual2 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json3.json", "stylish");
         assertEquals(expected2, actual2);
 
         String expected3 = "{\n"
@@ -45,7 +45,7 @@ public class DifferTest {
                 +  "  + proxy: 123.234.53.22\n"
                 +  "  + timeout: 55\n"
                 +  "}";
-        String actual3 = Differ.generate("src/test/resources/json3.json", "src/test/resources/json1.json");
+        String actual3 = Differ.generate("src/test/resources/json3.json", "src/test/resources/json1.json", "stylish");
         assertEquals(expected3, actual3);
     }
 
@@ -76,9 +76,11 @@ public class DifferTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        String actual1 = Differ.generate("src/test/resources/jsonTree1.json", "src/test/resources/jsonTree2.json");
+        String actual1 = Differ.generate("src/test/resources/jsonTree1.json",
+                "src/test/resources/jsonTree2.json", "stylish");
         assertEquals(expected, actual1);
-        String actual2 = Differ.generate("src/test/resources/yamlTree1.yml", "src/test/resources/yamlTree2.yml");
+        String actual2 = Differ.generate("src/test/resources/yamlTree1.yml",
+                "src/test/resources/yamlTree2.yml", "stylish");
         assertEquals(expected, actual2);
     }
 
@@ -93,7 +95,7 @@ public class DifferTest {
                 + "  - timeout: 55\n"
                 + "  + timeout: 70\n"
                 + "}";
-        String actual1 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml2.yml");
+        String actual1 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml2.yml", "stylish");
         assertEquals(expected1, actual1);
 
         String expected2 = "{\n"
@@ -103,7 +105,7 @@ public class DifferTest {
                 + "  - proxy: 123.234.53.22\n"
                 + "  - timeout: 55\n"
                 + "}";
-        String actual2 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml3.yml");
+        String actual2 = Differ.generate("src/test/resources/yaml1.yml", "src/test/resources/yaml3.yml", "stylish");
         assertEquals(expected2, actual2);
 
         String expected3 = "{\n"
@@ -113,7 +115,7 @@ public class DifferTest {
                 + "  + proxy: 123.234.53.22\n"
                 + "  + timeout: 55\n"
                 + "}";
-        String actual3 = Differ.generate("src/test/resources/yaml3.yml", "src/test/resources/yaml1.yml");
+        String actual3 = Differ.generate("src/test/resources/yaml3.yml", "src/test/resources/yaml1.yml", "stylish");
         assertEquals(expected3, actual3);
     }
 

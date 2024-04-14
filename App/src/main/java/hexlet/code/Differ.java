@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
 import java.nio.file.NoSuchFileException;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2) throws Exception {
+    public static String generate(String filepath1, String filepath2, String formatterName) throws Exception {
         try {
             Map<String, Object> map1 = Parser.getMap(filepath1);
             Map<String, Object> map2 = Parser.getMap(filepath2);
@@ -16,24 +19,47 @@ public class Differ {
                     .distinct()
                     .sorted().toArray(String[]::new);
 
-            StringBuilder builder = new StringBuilder();
-            builder.append("{\n");
+            List<Map<String, String>> paramsDiffer = new ArrayList<>(keys.length);
+            Map<String, String> differ;
+
             for (String key : keys) {
+
                 if (map1.containsKey(key) && map2.containsKey(key)
                         && String.valueOf(map1.get(key)).equals(String.valueOf(map2.get(key)))) {
-                    builder.append("    " + key + ": " + String.valueOf(map1.get(key)) + "\n");
+                    differ = new HashMap<>();
+                    paramsDiffer.add(differ);
+                    differ.put("key", key);
+                    differ.put("value", String.valueOf(map1.get(key)));
+                    differ.put("type", "equal");
                 } else {
                     if (map1.containsKey(key)) {
-                        builder.append("  - " + key + ": " + String.valueOf(map1.get(key)) + "\n");
+                        differ = new HashMap<>();
+                        paramsDiffer.add(differ);
+                        differ.put("key", key);
+                        differ.put("value", String.valueOf(map1.get(key)));
+                        differ.put("type", "remove");
                     }
                     if (map2.containsKey(key)) {
-                        builder.append("  + " + key + ": " + String.valueOf(map2.get(key)) + "\n");
+                        differ = new HashMap<>();
+                        paramsDiffer.add(differ);
+                        differ.put("key", key);
+                        differ.put("value", String.valueOf(map2.get(key)));
+                        differ.put("type", "add");
                     }
                 }
             }
-            builder.append("}");
 
-            return builder.toString();
+            String result;
+
+            switch (formatterName) {
+                case "stylish":
+                    result = StylishFormatter.formatDiffer(paramsDiffer);
+                    break;
+                default:
+                    result = "";
+            }
+
+            return result;
         } catch (NoSuchFileException e) {
             return "No such file: " + e.getMessage();
         } catch (MismatchedInputException e) {
