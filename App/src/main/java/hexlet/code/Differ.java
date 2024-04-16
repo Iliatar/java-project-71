@@ -20,37 +20,31 @@ public class Differ {
                     .sorted().toArray(String[]::new);
 
             List<Map<String, String>> paramsDiffer = new ArrayList<>(keys.length);
-            Map<String, String> differ;
 
             for (String key : keys) {
+                Map<String, String> differ = new HashMap<>();
+                paramsDiffer.add(differ);
+                differ.put("key", key);
 
-                if (map1.containsKey(key) && map2.containsKey(key)
-                        && String.valueOf(map1.get(key)).equals(String.valueOf(map2.get(key)))) {
-                    differ = new HashMap<>();
-                    paramsDiffer.add(differ);
-                    differ.put("key", key);
-                    differ.put("value", String.valueOf(map1.get(key)));
-                    differ.put("type", "equal");
-                } else {
-                    if (map1.containsKey(key)) {
-                        differ = new HashMap<>();
-                        paramsDiffer.add(differ);
-                        differ.put("key", key);
+                if (map1.containsKey(key) && map2.containsKey(key)) {
+                    if (String.valueOf(map1.get(key)).equals(String.valueOf(map2.get(key)))) {
                         differ.put("value", String.valueOf(map1.get(key)));
-                        differ.put("type", "remove");
+                        differ.put("type", "equal");
+                    } else {
+                        differ.put("oldValue", String.valueOf(map1.get(key)));
+                        differ.put("newValue", String.valueOf(map2.get(key)));
+                        differ.put("type", "change");
                     }
-                    if (map2.containsKey(key)) {
-                        differ = new HashMap<>();
-                        paramsDiffer.add(differ);
-                        differ.put("key", key);
-                        differ.put("value", String.valueOf(map2.get(key)));
-                        differ.put("type", "add");
-                    }
+                } else if (map1.containsKey(key)) {
+                    differ.put("oldValue", String.valueOf(map1.get(key)));
+                    differ.put("type", "remove");
+                } else {
+                    differ.put("newValue", String.valueOf(map2.get(key)));
+                    differ.put("type", "add");
                 }
             }
 
             String result;
-
             switch (formatterName) {
                 case "stylish":
                     result = StylishFormatter.formatDiffer(paramsDiffer);
@@ -58,7 +52,6 @@ public class Differ {
                 default:
                     result = "";
             }
-
             return result;
         } catch (NoSuchFileException e) {
             return "No such file: " + e.getMessage();

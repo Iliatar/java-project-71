@@ -9,26 +9,31 @@ public class StylishFormatter {
         builder.append("{\n");
 
         for (Map<String, String> differ : paramsDiffer) {
-            builder.append(getFormatLine(differ));
+            builder.append(getDifferLine(differ));
         }
 
         builder.append("}");
 
         return  builder.toString();
     }
-    private static String getFormatLine(Map<String, String> differ) {
+
+    private static String getDifferLine(Map<String, String> differ) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("  ");
-
         switch (differ.get("type")) {
-            case "add" -> builder.append("+ ");
-            case "remove" -> builder.append("- ");
-            default -> builder.append("  ");
+            case "add" -> builder.append(getFormatLine("+", differ.get("key"), differ.get("newValue")));
+            case "remove" -> builder.append(getFormatLine("-", differ.get("key"), differ.get("oldValue")));
+            case "change" -> {
+                builder.append(getFormatLine("-", differ.get("key"), differ.get("oldValue")));
+                builder.append(getFormatLine("+", differ.get("key"), differ.get("newValue")));
+            }
+            default -> builder.append(getFormatLine(" ", differ.get("key"), differ.get("value")));
         }
 
-        builder.append(differ.get("key")).append(": ").append(differ.get("value")).append("\n");
-
         return  builder.toString();
+    }
+
+    private static String getFormatLine(String prefix, String key, String value) {
+        return "  " + prefix + " " + key + ": " + value + "\n";
     }
 }
