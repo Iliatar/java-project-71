@@ -8,3 +8,4 @@ Application compare two plain json files and shows differences between them
 ###Aciinema
 https://asciinema.org/a/DPEVIqeIensvf3Txajg7mdERH
 https://asciinema.org/a/IseFQ2uouCLW6QK424dAQpJQL
+https://asciinema.org/a/nJaDjRy510ngCcG1TyyBmRaQW

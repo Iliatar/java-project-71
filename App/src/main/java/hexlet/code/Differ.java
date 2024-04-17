@@ -44,15 +44,7 @@ public class Differ {
                 }
             }
 
-            String result;
-            switch (formatterName) {
-                case "stylish":
-                    result = StylishFormatter.formatDiffer(paramsDiffer);
-                    break;
-                default:
-                    result = "";
-            }
-            return result;
+            return Formatter.formatDiffer(paramsDiffer, formatterName);
         } catch (NoSuchFileException e) {
             return "No such file: " + e.getMessage();
         } catch (MismatchedInputException e) {
