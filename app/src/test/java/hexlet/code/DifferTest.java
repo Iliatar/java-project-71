@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class DifferTest {
+public final class DifferTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
     @BeforeEach

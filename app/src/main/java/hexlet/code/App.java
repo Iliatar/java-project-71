@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "", mixinStandardHelpOptions = true,
         version = "App 0.1", description = "Unknown Application")
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
     @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "stylish",
             paramLabel = "format", description = "output format [default: ${DEFAULT-VALUE}]")
     private String format;
