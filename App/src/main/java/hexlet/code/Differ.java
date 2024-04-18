@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2, String formatterName) throws Exception {
+    public static String generate(String filepath1, String filepath2, String formatterName) {
         try {
             Map<String, Object> map1 = Parser.getMap(filepath1);
             Map<String, Object> map2 = Parser.getMap(filepath2);
@@ -56,6 +56,8 @@ public class Differ {
             return "Error parsing file: " + e.getMessage();
         } catch (JsonParseException e) {
             return "Error parsing file: " + e.getMessage();
+        } catch (Exception e) {
+            return  "Error: " + e.getMessage();
         }
     }
 

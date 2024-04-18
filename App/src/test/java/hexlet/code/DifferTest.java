@@ -17,7 +17,7 @@ public class DifferTest {
         System.setOut(new PrintStream(output));
     }
     @Test
-    public void testJson() throws Exception {
+    public void testJson() {
         String expected1 = "[ {\n"
                 + "  \"newValue\" : \"false\",\n"
                 + "  \"newType\" : \"Boolean\",\n"
@@ -93,7 +93,7 @@ public class DifferTest {
     }
 
     @Test
-    public void testObject() throws Exception {
+    public void testObject() {
         String expected = "{\n"
                 + "    chars1: [a, b, c]\n"
                 + "  - chars2: [d, e, f]\n"
@@ -128,7 +128,7 @@ public class DifferTest {
     }
 
     @Test
-    public void testPlainFormatter() throws Exception {
+    public void testPlainFormatter() {
         String expected = "Property 'chars2' was updated. From [complex value] to false\n"
                 + "Property 'checked' was updated. From false to true\n"
                 + "Property 'default' was updated. From null to [complex value]\n"
