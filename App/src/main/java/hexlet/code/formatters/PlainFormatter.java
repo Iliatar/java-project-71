@@ -6,7 +6,7 @@ import java.util.Map;
 public class PlainFormatter {
     public static String formatDiffer(List<Map<String, String>> paramsDiffer) {
         String[] lines = paramsDiffer.stream()
-                .filter(map -> !map.get("type").equals("equal"))
+                .filter(map -> !map.get("action").equals("equal"))
                 .map(PlainFormatter::getDifferLine)
                 .toArray(String[]::new);
 
@@ -17,26 +17,26 @@ public class PlainFormatter {
         StringBuilder builder = new StringBuilder();
         builder.append("Property '").append(differ.get("key")).append("' was ");
 
-        switch (differ.get("type")) {
-            case "add" -> builder.append("added with value: ").append(getFormattedValue(differ.get("newValue")));
+        switch (differ.get("action")) {
+            case "add" -> builder.append("added with value: ")
+                    .append(getFormattedValue(differ.get("newValue"), differ.get("newType")));
             case "remove" -> builder.append("removed");
-            case "change" -> builder.append("updated. From ").append(getFormattedValue(differ.get("oldValue")))
-                    .append(" to ").append(getFormattedValue(differ.get("newValue")));
+            case "change" -> builder.append("updated. From ")
+                    .append(getFormattedValue(differ.get("oldValue"), differ.get("oldType")))
+                    .append(" to ").append(getFormattedValue(differ.get("newValue"), differ.get("newType")));
             default -> builder.append("not changed");
         }
 
         return builder.toString();
     }
 
-    private static String getFormattedValue(String rawValue) {
-        if (rawValue.equals("null") || rawValue.equals("true") || rawValue.equals("false")) {
-            return rawValue;
-        } else if (rawValue.matches("-?\\d+(\\.\\d+)?")) {
-            return  rawValue;
-        } else if (rawValue.startsWith("[") || rawValue.startsWith("{")) {
+    private static String getFormattedValue(String rawValue, String type) {
+        if (type.equals("Object") && !rawValue.equals("null")) {
             return "[complex value]";
-        } else {
+        } else if (type.equals("String")) {
             return "'" + rawValue + "'";
+        } else {
+            return  rawValue;
         }
     }
 }

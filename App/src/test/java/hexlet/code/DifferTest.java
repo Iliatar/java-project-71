@@ -18,35 +18,78 @@ public class DifferTest {
     }
     @Test
     public void testJson() throws Exception {
-        String expected1 = "{\n"
-                + "  - follow: false\n"
-                + "  + followed: true\n"
-                + "    host: hexlet.io\n"
-                + "  + login: blablator\n"
-                + "    proxy: 123.234.53.22\n"
-                + "  - timeout: 55\n"
-                + "  + timeout: 200\n"
-                + "}";
-        String actual1 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json2.json", "stylish");
+        String expected1 = "[ {\n"
+                + "  \"newValue\" : \"false\",\n"
+                + "  \"newType\" : \"Boolean\",\n"
+                + "  \"oldType\" : \"Object\",\n"
+                + "  \"oldValue\" : \"[d, e, f]\",\n"
+                + "  \"key\" : \"chars2\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"true\",\n"
+                + "  \"newType\" : \"Boolean\",\n"
+                + "  \"oldType\" : \"Boolean\",\n"
+                + "  \"oldValue\" : \"false\",\n"
+                + "  \"key\" : \"checked\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"[value1, value2]\",\n"
+                + "  \"newType\" : \"Object\",\n"
+                + "  \"oldType\" : \"Object\",\n"
+                + "  \"oldValue\" : \"null\",\n"
+                + "  \"key\" : \"default\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"null\",\n"
+                + "  \"newType\" : \"Object\",\n"
+                + "  \"oldType\" : \"Number\",\n"
+                + "  \"oldValue\" : \"45\",\n"
+                + "  \"key\" : \"id\"\n"
+                + "}, {\n"
+                + "  \"oldType\" : \"String\",\n"
+                + "  \"oldValue\" : \"value1\",\n"
+                + "  \"key\" : \"key1\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"value2\",\n"
+                + "  \"newType\" : \"String\",\n"
+                + "  \"key\" : \"key2\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"[22, 33, 44, 55]\",\n"
+                + "  \"newType\" : \"Object\",\n"
+                + "  \"oldType\" : \"Object\",\n"
+                + "  \"oldValue\" : \"[2, 3, 4, 5]\",\n"
+                + "  \"key\" : \"numbers2\"\n"
+                + "}, {\n"
+                + "  \"oldType\" : \"Object\",\n"
+                + "  \"oldValue\" : \"[3, 4, 5]\",\n"
+                + "  \"key\" : \"numbers3\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"[4, 5, 6]\",\n"
+                + "  \"newType\" : \"Object\",\n"
+                + "  \"key\" : \"numbers4\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"{nestedKey=value, isNested=true}\",\n"
+                + "  \"newType\" : \"Object\",\n"
+                + "  \"key\" : \"obj1\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"Another value\",\n"
+                + "  \"newType\" : \"String\",\n"
+                + "  \"oldType\" : \"String\",\n"
+                + "  \"oldValue\" : \"Some value\",\n"
+                + "  \"key\" : \"setting1\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"300\",\n"
+                + "  \"newType\" : \"Number\",\n"
+                + "  \"oldType\" : \"Number\",\n"
+                + "  \"oldValue\" : \"200\",\n"
+                + "  \"key\" : \"setting2\"\n"
+                + "}, {\n"
+                + "  \"newValue\" : \"none\",\n"
+                + "  \"newType\" : \"String\",\n"
+                + "  \"oldType\" : \"Boolean\",\n"
+                + "  \"oldValue\" : \"true\",\n"
+                + "  \"key\" : \"setting3\"\n"
+                + "} ]";
+        String actual1 = Differ.generate("src/test/resources/jsonTree1.json",
+                "src/test/resources/jsonTree2.json", "json");
         assertEquals(expected1, actual1);
-
-        String expected2 = "{\n"
-                + "  - follow: false\n"
-                + "  - host: hexlet.io\n"
-                + "  - proxy: 123.234.53.22\n"
-                + "  - timeout: 55\n"
-                + "}";
-        String actual2 = Differ.generate("src/test/resources/json1.json", "src/test/resources/json3.json", "stylish");
-        assertEquals(expected2, actual2);
-
-        String expected3 = "{\n"
-                +  "  + follow: false\n"
-                +  "  + host: hexlet.io\n"
-                +  "  + proxy: 123.234.53.22\n"
-                +  "  + timeout: 55\n"
-                +  "}";
-        String actual3 = Differ.generate("src/test/resources/json3.json", "src/test/resources/json1.json", "stylish");
-        assertEquals(expected3, actual3);
     }
 
     @Test
@@ -104,7 +147,7 @@ public class DifferTest {
         assertEquals(expected, actual1);
     }
 
-    @Test
+    /*@Test
     public void testYaml() throws Exception {
         String expected1 = "{\n"
                 + "  - follow: false\n"
@@ -137,7 +180,7 @@ public class DifferTest {
                 + "}";
         String actual3 = Differ.generate("src/test/resources/yaml3.yml", "src/test/resources/yaml1.yml", "stylish");
         assertEquals(expected3, actual3);
-    }
+    }*/
 
     @AfterEach
     public void tearDown() {

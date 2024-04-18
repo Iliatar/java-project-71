@@ -20,7 +20,7 @@ public class StylishFormatter {
     private static String getDifferLine(Map<String, String> differ) {
         StringBuilder builder = new StringBuilder();
 
-        switch (differ.get("type")) {
+        switch (differ.get("action")) {
             case "add" -> builder.append(getFormatLine("+", differ.get("key"), differ.get("newValue")));
             case "remove" -> builder.append(getFormatLine("-", differ.get("key"), differ.get("oldValue")));
             case "change" -> {

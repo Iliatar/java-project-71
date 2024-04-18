@@ -29,18 +29,23 @@ public class Differ {
                 if (map1.containsKey(key) && map2.containsKey(key)) {
                     if (String.valueOf(map1.get(key)).equals(String.valueOf(map2.get(key)))) {
                         differ.put("value", String.valueOf(map1.get(key)));
-                        differ.put("type", "equal");
+                        differ.put("type", getObjectType(map1.get(key)));
+                        differ.put("action", "equal");
                     } else {
                         differ.put("oldValue", String.valueOf(map1.get(key)));
+                        differ.put("oldType", getObjectType(map1.get(key)));
                         differ.put("newValue", String.valueOf(map2.get(key)));
-                        differ.put("type", "change");
+                        differ.put("newType", getObjectType(map2.get(key)));
+                        differ.put("action", "change");
                     }
                 } else if (map1.containsKey(key)) {
                     differ.put("oldValue", String.valueOf(map1.get(key)));
-                    differ.put("type", "remove");
+                    differ.put("oldType", getObjectType(map1.get(key)));
+                    differ.put("action", "remove");
                 } else {
                     differ.put("newValue", String.valueOf(map2.get(key)));
-                    differ.put("type", "add");
+                    differ.put("newType", getObjectType(map2.get(key)));
+                    differ.put("action", "add");
                 }
             }
 
@@ -52,5 +57,19 @@ public class Differ {
         } catch (JsonParseException e) {
             return "Error parsing file: " + e.getMessage();
         }
+    }
+
+    private static String getObjectType(Object o) {
+        String type = "Object";
+
+        if (o instanceof String) {
+            type = "String";
+        } else if (o instanceof Number) {
+            type = "Number";
+        } else if (o instanceof Boolean) {
+            type = "Boolean";
+        }
+
+        return type;
     }
 }

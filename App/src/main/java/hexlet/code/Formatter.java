@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 
@@ -15,6 +16,9 @@ public class Formatter {
                 break;
             case "plain":
                 result = PlainFormatter.formatDiffer(paramsDiffer);
+                break;
+            case "json":
+                result = JsonFormatter.formatDiffer(paramsDiffer);
                 break;
             default:
                 result = "";
