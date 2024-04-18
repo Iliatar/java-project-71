@@ -61,6 +61,10 @@ public class Differ {
         }
     }
 
+    public static String generate(String filepath1, String filepath2) {
+        return generate(filepath1, filepath2, "stylish");
+    }
+
     private static String getObjectType(Object o) {
         String type = "Object";
 
