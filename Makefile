@@ -1,7 +1,7 @@
 run-dist:
-	./App/build/install/App/bin/App
+	./app/build/install/app/bin/app
 run-json:
-	./App/build/install/App/bin/App json1.json json2.json
+	./app/build/install/app/bin/app json1.json json2.json
 
 build-dist:
 	make -C app build-dist
