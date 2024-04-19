@@ -23,11 +23,8 @@ application {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation(files("src/main/java/lib/jackson-core-2.17.0.jar"))
-    implementation(files("src/main/java/lib/jackson-databind-2.17.0.jar"))
-    implementation(files("src/main/java/lib/jackson-annotations-2.15.4.jar"))
-    implementation(files("src/main/java/lib/jackson-dataformat-yaml-2.16.2.jar"))
-    implementation(files("src/main/java/lib/snakeyaml-2.2.jar"))
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0")
     implementation("info.picocli:picocli:4.7.5");
 }
 
