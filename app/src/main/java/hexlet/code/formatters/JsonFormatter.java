@@ -6,20 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonFormatter {
-    public static String formatDiffer(List<Map<String, String>> paramsDiffer) {
+    public static String formatDiffer(Map<String, Map<String, Object>> paramsDiffer) throws Exception {
         String json = "";
 
-        paramsDiffer = paramsDiffer.stream()
-                .filter(map -> !map.get("action").equals("equal"))
-                .toList();
+        List<String> removedKeys = paramsDiffer.keySet().stream()
+                .filter(key -> paramsDiffer.get(key).containsKey("sameValue")).toList();
+        removedKeys.stream().forEach(paramsDiffer::remove);
 
-        paramsDiffer.stream().forEach(map -> map.remove("action"));
-
-        try {
-            json = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(paramsDiffer);
-        } catch (Exception e) {
-
-        }
+        json = new ObjectMapper().writeValueAsString(paramsDiffer);
 
         return json;
     }
