@@ -11,9 +11,6 @@ public class Formatter {
                                       String formatterName) throws Exception {
         String result;
         switch (formatterName) {
-            case "stylish":
-                result = StylishFormatter.formatDiffer(paramsDiffer);
-                break;
             case "plain":
                 result = PlainFormatter.formatDiffer(paramsDiffer);
                 break;
@@ -21,7 +18,7 @@ public class Formatter {
                 result = JsonFormatter.formatDiffer(paramsDiffer);
                 break;
             default:
-                result = "";
+                result = StylishFormatter.formatDiffer(paramsDiffer);
         }
         return result;
     }

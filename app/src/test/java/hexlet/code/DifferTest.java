@@ -18,15 +18,18 @@ public final class DifferTest {
     }
     @Test
     public void testJson() throws Exception {
-        String expected1 = "{\"setting2\":{\"newValue\":300,\"oldValue\":200},"
-                + "\"key1\":{\"oldValue\":\"value1\"},\"setting3\":{\"newValue\":\"none\",\"oldValue\":true},"
-                + "\"key2\":{\"newValue\":\"value2\"},\"chars2\":{\"newValue\":false,\"oldValue\":[\"d\",\"e\",\"f\"]},"
-                + "\"setting1\":{\"newValue\":\"Another value\",\"oldValue\":\"Some value\"},"
-                + "\"numbers4\":{\"newValue\":[4,5,6]},\"numbers3\":{\"oldValue\":[3,4,5]},"
-                + "\"numbers2\":{\"newValue\":[22,33,44,55],\"oldValue\":[2,3,4,5]},"
-                + "\"obj1\":{\"newValue\":{\"nestedKey\":\"value\",\"isNested\":true}},"
-                + "\"default\":{\"newValue\":[\"value1\",\"value2\"],\"oldValue\":null},"
-                + "\"checked\":{\"newValue\":true,\"oldValue\":false},\"id\":{\"newValue\":null,\"oldValue\":45}}";
+        String expected1 = "{\"setting2\":{\"newValue\":300,\"oldValue\":200},\"key1\":{\"oldValue\":\"value1\"}"
+                + ",\"setting3\":{\"newValue\":\"none\",\"oldValue\":true},\"key2\":{\"newValue\":\"value2\"}"
+                + ",\"chars2\":{\"newValue\":false,\"oldValue\":[\"d\",\"e\",\"f\"]},"
+                + "\"setting1\":{\"newValue\":\"Another value\""
+                + ",\"oldValue\":\"Some value\"},\"chars1\":{\"sameValue\":[\"a\",\"b\",\"c\"]},"
+                + "\"numbers4\":{\"newValue\":[4,5,6]}"
+                + ",\"numbers3\":{\"oldValue\":[3,4,5]},\"numbers2\":{\"newValue\":[22,33,44,55],"
+                + "\"oldValue\":[2,3,4,5]}"
+                + ",\"numbers1\":{\"sameValue\":[1,2,3,4]},"
+                + "\"obj1\":{\"newValue\":{\"nestedKey\":\"value\",\"isNested\":true}}"
+                + ",\"default\":{\"newValue\":[\"value1\",\"value2\"],\"oldValue\":null}"
+                + ",\"checked\":{\"newValue\":true,\"oldValue\":false},\"id\":{\"newValue\":null,\"oldValue\":45}}";
         String actual1 = Differ.generate("src/test/resources/jsonTree1.json",
                 "src/test/resources/jsonTree2.json", "json");
         assertEquals(expected1, actual1);
