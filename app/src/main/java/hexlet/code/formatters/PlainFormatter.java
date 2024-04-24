@@ -38,12 +38,12 @@ public class PlainFormatter {
     private static String getFormattedValue(Object objectValue) {
         if (objectValue == null) {
             return "null";
-        } else if (objectValue instanceof Boolean || objectValue instanceof Number) {
-            return objectValue.toString();
+        } else if (objectValue instanceof Map || objectValue instanceof List) {
+            return "[complex value]";
         } else if (objectValue instanceof String) {
             return "'" + objectValue + "'";
         } else {
-            return "[complex value]";
+            return objectValue.toString();
         }
     }
 }
