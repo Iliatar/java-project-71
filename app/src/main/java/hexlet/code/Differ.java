@@ -10,7 +10,7 @@ public class Differ {
         Map<String, Object> map1 = parse(filepath1);
         Map<String, Object> map2 = parse(filepath2);
 
-        Map<String, Map<String, Object>> paramsDiffer = Comparer.getDifference(map1, map2);
+        Map<String, DifferItem> paramsDiffer = Comparer.getDifference(map1, map2);
 
         return Formatter.formatDiffer(paramsDiffer, formatterName);
     }

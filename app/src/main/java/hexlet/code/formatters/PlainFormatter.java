@@ -1,13 +1,15 @@
 package hexlet.code.formatters;
 
+import hexlet.code.DifferItem;
+
 import java.util.List;
 import java.util.Map;
 
 public class PlainFormatter {
-    public static String formatDiffer(Map<String, Map<String, Object>> paramsDiffer) {
+    public static String formatDiffer(Map<String, DifferItem> paramsDiffer) {
 
         List<String> lines = paramsDiffer.keySet().stream()
-                .filter(key -> !paramsDiffer.get(key).containsKey("sameValue"))
+                .filter(key -> !paramsDiffer.get(key).getStatusName().equals(DifferItem.UNCHANGED))
                 .sorted()
                 .map(key -> getDifferLine(key, paramsDiffer.get(key)))
                 .toList();
@@ -15,17 +17,17 @@ public class PlainFormatter {
         return String.join("\n", lines);
     }
 
-    private static String getDifferLine(String key, Map<String, Object> differ) {
+    private static String getDifferLine(String key, DifferItem differItem) {
         StringBuilder builder = new StringBuilder();
         builder.append("Property '").append(key).append("' was ");
 
-        if (differ.containsKey("newValue") && differ.containsKey("oldValue")) {
+        if (differItem.getStatusName().equals(DifferItem.CHANGED)) {
             builder.append("updated. From ")
-                    .append(getFormattedValue(differ.get("oldValue")))
-                    .append(" to ").append(getFormattedValue(differ.get("newValue")));
-        } else if (differ.containsKey("newValue")) {
+                    .append(getFormattedValue(differItem.getOldValue()))
+                    .append(" to ").append(getFormattedValue(differItem.getNewValue()));
+        } else if (differItem.getStatusName().equals(DifferItem.ADDED)) {
             builder.append("added with value: ")
-                    .append(getFormattedValue(differ.get("newValue")));
+                    .append(getFormattedValue(differItem.getNewValue()));
         } else {
             builder.append("removed");
         }

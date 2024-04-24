@@ -7,7 +7,7 @@ import hexlet.code.formatters.StylishFormatter;
 import java.util.Map;
 
 public class Formatter {
-    public static String formatDiffer(Map<String, Map<String, Object>> paramsDiffer,
+    public static String formatDiffer(Map<String, DifferItem> paramsDiffer,
                                       String formatterName) throws Exception {
         String result;
         switch (formatterName) {

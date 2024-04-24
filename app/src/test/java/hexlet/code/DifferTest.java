@@ -18,18 +18,22 @@ public final class DifferTest {
     }
     @Test
     public void testJson() throws Exception {
-        String expected1 = "{\"setting2\":{\"newValue\":300,\"oldValue\":200},\"key1\":{\"oldValue\":\"value1\"}"
-                + ",\"setting3\":{\"newValue\":\"none\",\"oldValue\":true},\"key2\":{\"newValue\":\"value2\"}"
-                + ",\"chars2\":{\"newValue\":false,\"oldValue\":[\"d\",\"e\",\"f\"]},"
-                + "\"setting1\":{\"newValue\":\"Another value\""
-                + ",\"oldValue\":\"Some value\"},\"chars1\":{\"sameValue\":[\"a\",\"b\",\"c\"]},"
-                + "\"numbers4\":{\"newValue\":[4,5,6]}"
-                + ",\"numbers3\":{\"oldValue\":[3,4,5]},\"numbers2\":{\"newValue\":[22,33,44,55],"
-                + "\"oldValue\":[2,3,4,5]}"
-                + ",\"numbers1\":{\"sameValue\":[1,2,3,4]},"
-                + "\"obj1\":{\"newValue\":{\"nestedKey\":\"value\",\"isNested\":true}}"
-                + ",\"default\":{\"newValue\":[\"value1\",\"value2\"],\"oldValue\":null}"
-                + ",\"checked\":{\"newValue\":true,\"oldValue\":false},\"id\":{\"newValue\":null,\"oldValue\":45}}";
+        String expected1 = "{\"setting2\":{\"statusName\":\"changed\",\"oldValue\":200,\"newValue\":300},"
+                + "\"key1\":{\"statusName\":\"deleted\",\"oldValue\":\"value1\",\"newValue\":null},"
+                + "\"setting3\":{\"statusName\":\"changed\",\"oldValue\":true,\"newValue\":\"none\"},"
+                + "\"key2\":{\"statusName\":\"added\",\"oldValue\":null,\"newValue\":\"value2\"},"
+                + "\"chars2\":{\"statusName\":\"changed\",\"oldValue\":[\"d\",\"e\",\"f\"],\"newValue\":false},"
+                + "\"setting1\":{\"statusName\":\"changed\",\"oldValue\":\"Some value\","
+                + "\"newValue\":\"Another value\"},"
+                + "\"chars1\":{\"statusName\":\"unchanged\",\"oldValue\":null,\"newValue\":[\"a\",\"b\",\"c\"]},"
+                + "\"numbers4\":{\"statusName\":\"added\",\"oldValue\":null,\"newValue\":[4,5,6]},"
+                + "\"numbers3\":{\"statusName\":\"deleted\",\"oldValue\":[3,4,5],\"newValue\":null},"
+                + "\"numbers2\":{\"statusName\":\"changed\",\"oldValue\":[2,3,4,5],\"newValue\":[22,33,44,55]},"
+                + "\"numbers1\":{\"statusName\":\"unchanged\",\"oldValue\":null,\"newValue\":[1,2,3,4]},"
+                + "\"obj1\":{\"statusName\":\"added\",\"oldValue\":null,\"newValue\":{\"nestedKey\":\"value\","
+                + "\"isNested\":true}},\"default\":{\"statusName\":\"changed\",\"oldValue\":null,"
+                + "\"newValue\":[\"value1\",\"value2\"]},\"checked\":{\"statusName\":\"changed\",\"oldValue\":false,"
+                + "\"newValue\":true},\"id\":{\"statusName\":\"changed\",\"oldValue\":45,\"newValue\":null}}";
         String actual1 = Differ.generate("src/test/resources/jsonTree1.json",
                 "src/test/resources/jsonTree2.json", "json");
         assertEquals(expected1, actual1);

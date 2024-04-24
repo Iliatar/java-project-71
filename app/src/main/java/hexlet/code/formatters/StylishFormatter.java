@@ -1,10 +1,12 @@
 package hexlet.code.formatters;
 
+import hexlet.code.DifferItem;
+
 import java.util.List;
 import java.util.Map;
 
 public class StylishFormatter {
-    public static String formatDiffer(Map<String, Map<String, Object>> paramsDiffer) {
+    public static String formatDiffer(Map<String, DifferItem> paramsDiffer) {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n");
 
@@ -21,18 +23,17 @@ public class StylishFormatter {
         return  builder.toString();
     }
 
-    private static String getDifferLine(String key, Map<String, Object> differ) {
+    private static String getDifferLine(String key, DifferItem differItem) {
         StringBuilder builder = new StringBuilder();
 
-        if (differ.containsKey("sameValue")) {
-            builder.append(getFormatLine(" ", key, differ.get("sameValue")));
-        } else if (differ.containsKey("newValue") && differ.containsKey("oldValue")) {
-            builder.append(getFormatLine("-", key, differ.get("oldValue")));
-            builder.append(getFormatLine("+", key, differ.get("newValue")));
-        } else if (differ.containsKey("newValue")) {
-            builder.append(getFormatLine("+", key, differ.get("newValue")));
-        } else {
-            builder.append(getFormatLine("-", key, differ.get("oldValue")));
+        switch (differItem.getStatusName()) {
+            case DifferItem.CHANGED -> {
+                builder.append(getFormatLine("-", key, differItem.getOldValue()));
+                builder.append(getFormatLine("+", key, differItem.getNewValue()));
+            }
+            case DifferItem.ADDED -> builder.append(getFormatLine("+", key, differItem.getNewValue()));
+            case DifferItem.DELETED -> builder.append(getFormatLine("-", key, differItem.getOldValue()));
+            default -> builder.append(getFormatLine(" ", key, differItem.getNewValue()));
         }
 
         return  builder.toString();
