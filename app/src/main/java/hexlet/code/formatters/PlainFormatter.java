@@ -21,15 +21,14 @@ public class PlainFormatter {
         StringBuilder builder = new StringBuilder();
         builder.append("Property '").append(key).append("' was ");
 
-        if (differItem.getStatusName().equals(DifferItem.CHANGED)) {
-            builder.append("updated. From ")
+        switch (differItem.getStatusName()) {
+            case DifferItem.CHANGED -> builder.append("updated. From ")
                     .append(getFormattedValue(differItem.getOldValue()))
                     .append(" to ").append(getFormattedValue(differItem.getNewValue()));
-        } else if (differItem.getStatusName().equals(DifferItem.ADDED)) {
-            builder.append("added with value: ")
+            case DifferItem.ADDED -> builder.append("added with value: ")
                     .append(getFormattedValue(differItem.getNewValue()));
-        } else {
-            builder.append("removed");
+            case DifferItem.DELETED -> builder.append("removed");
+            default -> throw new RuntimeException("Unknown key: " + key);
         }
 
         return builder.toString();

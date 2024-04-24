@@ -33,7 +33,8 @@ public class StylishFormatter {
             }
             case DifferItem.ADDED -> builder.append(getFormatLine("+", key, differItem.getNewValue()));
             case DifferItem.DELETED -> builder.append(getFormatLine("-", key, differItem.getOldValue()));
-            default -> builder.append(getFormatLine(" ", key, differItem.getNewValue()));
+            case DifferItem.UNCHANGED -> builder.append(getFormatLine(" ", key, differItem.getNewValue()));
+            default -> throw new RuntimeException("Unknown key: " + key);
         }
 
         return  builder.toString();
