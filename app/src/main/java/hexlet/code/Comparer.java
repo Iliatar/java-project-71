@@ -17,14 +17,13 @@ public class Comparer {
             Map<String, Object> differ = new HashMap<>();
             differs.put(key, differ);
 
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-                if ((map1.get(key) == null && map2.get(key) == null)
-                        || (map1.get(key) != null && map1.get(key).equals(map2.get(key)))) {
-                    differ.put("sameValue", map1.get(key));
-                } else {
-                    differ.put("oldValue", map1.get(key));
-                    differ.put("newValue", map2.get(key));
-                }
+            if (map1.containsKey(key) && map2.containsKey(key)
+                    && ((map1.get(key) == null && map2.get(key) == null)
+                    || (map1.get(key) != null && map1.get(key).equals(map2.get(key))))) {
+                differ.put("sameValue", map1.get(key));
+            } else if (map1.containsKey(key) && map2.containsKey(key)) {
+                differ.put("oldValue", map1.get(key));
+                differ.put("newValue", map2.get(key));
             } else if (map1.containsKey(key)) {
                 differ.put("oldValue", map1.get(key));
             } else {
