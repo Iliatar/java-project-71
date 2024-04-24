@@ -17,8 +17,11 @@ public class Formatter {
             case "json":
                 result = JsonFormatter.formatDiffer(paramsDiffer);
                 break;
-            default:
+            case "stylish":
                 result = StylishFormatter.formatDiffer(paramsDiffer);
+                break;
+            default:
+                throw new RuntimeException("Unknown formatter: " + formatterName);
         }
         return result;
     }
