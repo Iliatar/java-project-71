@@ -29,7 +29,7 @@ public class Comparer {
             } else if (map1.containsKey(key)) {
                 differItem.setStatusName(DifferItem.DELETED);
                 differItem.setOldValue(map1.get(key));
-            } else {
+            } else if (map2.containsKey(key)) {
                 differItem.setStatusName(DifferItem.ADDED);
                 differItem.setNewValue(map2.get(key));
             }

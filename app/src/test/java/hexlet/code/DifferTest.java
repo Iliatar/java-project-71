@@ -89,14 +89,14 @@ public final class DifferTest {
     public void testJsonDefault() throws Exception {
         String actual1 = Differ.generate("src/test/resources/jsonTree1.json",
                 "src/test/resources/jsonTree2.json");
-        assertEquals(resultPlain, actual1);
+        assertEquals(resultStylish, actual1);
     }
 
     @Test
     public void testYamlDefault() throws Exception {
         String actual1 = Differ.generate("src/test/resources/yamlTree1.yml",
                 "src/test/resources/yamlTree2.yml");
-        assertEquals(resultPlain, actual1);
+        assertEquals(resultStylish, actual1);
     }
 
     @AfterEach
