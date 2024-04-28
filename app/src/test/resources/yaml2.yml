@@ -1,5 +1,0 @@
-host: "hexlet.io"
-timeout: 70
-proxy: "123.234.53.22"
-format: "yaml"
-repeating: "no"
