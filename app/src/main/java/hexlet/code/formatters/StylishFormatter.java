@@ -2,7 +2,6 @@ package hexlet.code.formatters;
 
 import hexlet.code.DifferItem;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class StylishFormatter {
 
         builder.append("}");
 
-        return  builder.toString();
+        return builder.toString();
     }
 
     private static String getDifferLine(String key, DifferItem differItem) {
