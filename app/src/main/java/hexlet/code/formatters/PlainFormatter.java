@@ -10,7 +10,6 @@ public class PlainFormatter {
 
         List<String> lines = paramsDiffer.keySet().stream()
                 .filter(key -> !paramsDiffer.get(key).getStatusName().equals(DifferItem.UNCHANGED))
-                .sorted()
                 .map(key -> getDifferLine(key, paramsDiffer.get(key)))
                 .toList();
 

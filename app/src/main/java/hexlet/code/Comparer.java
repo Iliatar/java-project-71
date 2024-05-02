@@ -1,19 +1,20 @@
 package hexlet.code;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.TreeMap;
 
 public class Comparer {
     public static Map<String, DifferItem> getDifference(Map<String, Object> map1,
                                                                    Map<String, Object> map2) {
-        String[] keys = Stream.concat(map1.keySet().stream(), map2.keySet().stream())
-                .distinct()
-                .toArray(String[]::new);
+        Set<String> keySet = new TreeSet<>();
+        keySet.addAll(map1.keySet());
+        keySet.addAll(map2.keySet());
 
-        Map<String, DifferItem> differs = new HashMap<>(keys.length);
+        Map<String, DifferItem> differs = new TreeMap<>();
 
-        for (String key : keys) {
+        for (String key : keySet) {
             DifferItem differItem = new DifferItem();
             differs.put(key, differItem);
 

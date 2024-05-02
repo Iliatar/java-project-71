@@ -4,17 +4,16 @@ import hexlet.code.DifferItem;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class StylishFormatter {
     public static String formatDiffer(Map<String, DifferItem> paramsDiffer) {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n");
 
-        List<String> sortedKeys = paramsDiffer.keySet().stream()
-                .sorted()
-                .toList();
+        Set<String> keys = paramsDiffer.keySet();
 
-        for (String key : sortedKeys) {
+        for (String key : keys) {
             builder.append(getDifferLine(key, paramsDiffer.get(key)));
         }
 
