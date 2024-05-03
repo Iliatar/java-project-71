@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.TreeMap;
+import java.util.Objects;
 
 public class Comparer {
     public static Map<String, DifferItem> getDifference(Map<String, Object> map1,
@@ -18,21 +19,19 @@ public class Comparer {
             DifferItem differItem = new DifferItem();
             differs.put(key, differItem);
 
-            if (map1.containsKey(key) && map2.containsKey(key)
-                    && ((map1.get(key) == null && map2.get(key) == null)
-                    || (map1.get(key) != null && map1.get(key).equals(map2.get(key))))) {
+            if (!map1.containsKey(key)) {
+                differItem.setStatusName(DifferItem.ADDED);
+                differItem.setNewValue(map2.get(key));
+            } else if (!map2.containsKey(key)) {
+                differItem.setStatusName(DifferItem.DELETED);
+                differItem.setOldValue(map1.get(key));
+            } else if (Objects.equals(map1.get(key), map2.get(key))) {
                 differItem.setStatusName(DifferItem.UNCHANGED);
                 differItem.setNewValue(map2.get(key));
-            } else if (map1.containsKey(key) && map2.containsKey(key)) {
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
                 differItem.setStatusName(DifferItem.CHANGED);
                 differItem.setNewValue(map2.get(key));
                 differItem.setOldValue(map1.get(key));
-            } else if (map1.containsKey(key)) {
-                differItem.setStatusName(DifferItem.DELETED);
-                differItem.setOldValue(map1.get(key));
-            } else if (map2.containsKey(key)) {
-                differItem.setStatusName(DifferItem.ADDED);
-                differItem.setNewValue(map2.get(key));
             }
         }
 
